@@ -4,19 +4,23 @@
 \alias{cohens_d}
 \title{Function to compute cohen's d.}
 \usage{
-cohens_d(x1, x2)
+cohens_d(x1, x2, abs = FALSE)
 }
 \arguments{
 \item{x1}{A numeric vector of length n1.}
 
 \item{x2}{A numeric vector of length n2.}
+
+\item{abs}{A boolean that indicates whether response should be the absolute value of cohen's d or not.}
 }
 \value{
-The cohen's d of x1 and x2.
+A numeric value of the raw or absolute value of cohen's d of x1 and x2.
 }
 \description{
-This function takes two vectors and returns the absolute value of cohen's d.
+This function takes two vectors and returns the raw or absolute value of cohen's d. It is calculated by taking the difference of the two means and dividing it by the pooled standard deviation:
+$d = (x_1 - x_2) / s$ where $s = sqrt(((n_1 - 1) * s_1^2 + (n_2 - 1) * s_2^2) / (n_1 + n_2 - 2))$
 }
 \examples{
-cohens_d(c(1, 2, 3, 4), c(4, 6, 7, 4))
+cohens_d(c(1, 2, 3, 4), c(4, 6, 7, 4), TRUE)
+cohens_d(c(21, 12, 32, 46), c(84, 76, 57, 45), FALSE)
 }

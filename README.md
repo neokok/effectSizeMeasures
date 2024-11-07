@@ -8,6 +8,7 @@
 ![R-CMD-check](https://github.com/neokok/effectSizeMeasures/actions/workflows/R-CMD-check.yaml/badge.svg)
 [![Codecov test
 coverage](https://codecov.io/gh/neokok/effectSizeMeasures/graph/badge.svg)](https://app.codecov.io/gh/neokok/effectSizeMeasures)
+
 <!-- badges: end -->
 
 The goal of effectSizeMeasures is to provides tools to calculate
@@ -28,7 +29,7 @@ pak::pak("neokok/effectSizeMeasures")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-#library(effectSizeMeasures)
+library(effectSizeMeasures)
 ## basic example code
 ```
 

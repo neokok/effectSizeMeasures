@@ -12,7 +12,7 @@ pearson_corr(x, y)
 \item{y}{A numeric vector also of length n.}
 }
 \value{
-The pearson correlation coefficient of x and y.
+A numeric value of the pearson correlation coefficient of x and y.
 }
 \description{
 This function takes two vectors and returns pearson's correlation coefficient.

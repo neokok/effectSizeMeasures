@@ -1,9 +1,10 @@
 #' Function to compute odds ratio with normal approximation (Wald)
 #'
-#' This function takes a 2x2 matrix and calculates the odds ratio.
+#' This function takes a 2x2 matrix and calculates the odds ratio. The formula for this is:
+#' Odds ratio = (Diseased_Exposed / NonDiseased_Exposed) / (Diseased_NonExposed / NonDiseased_NonExposed)
 #'
 #' @param data A 2x2 numeric matrix of the form: c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2)
-#' @return The odds ratio of the matrix.
+#' @return A numeric value of the odds ratio of the matrix.
 #' @examples
 #' odds_ratio(matrix(c(20, 6, 380, 594), nrow = 2, ncol = 2))
 #' @export

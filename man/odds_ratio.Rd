@@ -10,7 +10,7 @@ odds_ratio(data)
 \item{data}{A 2x2 numeric matrix of the form: c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2)}
 }
 \value{
-The odds ratio of the matrix.
+A numeric value of the odds ratio of the matrix.
 }
 \description{
 This function takes a 2x2 matrix and calculates the odds ratio.

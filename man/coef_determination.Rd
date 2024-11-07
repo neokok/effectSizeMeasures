@@ -12,7 +12,7 @@ coef_determination(x, y)
 \item{y}{A numeric vector also of length n.}
 }
 \value{
-The coefficient of determination of x and y.
+A numeric value of coefficient of determination of x and y.
 }
 \description{
 This function takes two vectors and returns the coefficient of determination.
