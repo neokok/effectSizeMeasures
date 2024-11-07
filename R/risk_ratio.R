@@ -1,9 +1,9 @@
-#' Function to compute odds ratio with normal approximation (Wald)
+#' Function to compute risk ratio.
 #'
 #' This function takes a 2x2 matrix and calculates the risk ratio.
 #'
 #' @param data A 2x2 numeric matrix of the form: c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2)
-#' @return The odds ratio of the matrix.
+#' @return The risk ratio of the matrix.
 #' @examples
 #' risk_ratio(matrix(c(20, 6, 380, 594), nrow = 2, ncol = 2))
 #' @export

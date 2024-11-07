@@ -15,7 +15,7 @@ coef_determination(x, y)
 The coefficient of determination of x and y.
 }
 \description{
-This function takes two numbers and returns their sum.
+This function takes two vectors and returns the coefficient of determination.
 }
 \examples{
 coef_determination(c(1, 2, 3, 4), c(4, 6, 7, 4))

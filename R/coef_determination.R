@@ -1,6 +1,6 @@
 #' Function to compute coefficient of determination
 #'
-#' This function takes two numbers and returns their sum.
+#' This function takes two vectors and returns the coefficient of determination.
 #'
 #' @param x A numeric vector of length n.
 #' @param y A numeric vector also of length n.

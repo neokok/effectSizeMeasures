@@ -1,6 +1,6 @@
 #' Function to compute pearson's correlation coefficient
 #'
-#' This function takes two numbers and returns their sum.
+#' This function takes two vectors and returns pearson's correlation coefficient.
 #'
 #' @param x A numeric vector of length n.
 #' @param y A numeric vector also of length n.

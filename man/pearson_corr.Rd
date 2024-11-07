@@ -15,7 +15,7 @@ pearson_corr(x, y)
 The pearson correlation coefficient of x and y.
 }
 \description{
-This function takes two numbers and returns their sum.
+This function takes two vectors and returns pearson's correlation coefficient.
 }
 \examples{
 pearson_corr(c(1, 2, 3, 4), c(4, 6, 7, 4))
