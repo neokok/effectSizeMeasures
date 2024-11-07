@@ -5,7 +5,10 @@
 
 <!-- badges: start -->
 
-usethis::use_github_actions_badge() <!-- badges: end -->
+![R-CMD-check](https://github.com/neokok/effectSizeMeasures/actions/workflows/R-CMD-check.yaml/badge.svg)
+[![Codecov test
+coverage](https://codecov.io/gh/neokok/effectSizeMeasures/graph/badge.svg)](https://app.codecov.io/gh/neokok/effectSizeMeasures)
+<!-- badges: end -->
 
 The goal of effectSizeMeasures is to provides tools to calculate
 different effect size metrics for statistical analysis.
