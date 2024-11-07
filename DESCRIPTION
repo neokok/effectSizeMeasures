@@ -13,4 +13,3 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Imports:
-  dplyr
