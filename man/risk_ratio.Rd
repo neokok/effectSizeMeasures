@@ -2,7 +2,7 @@
 % Please edit documentation in R/risk_ratio.R
 \name{risk_ratio}
 \alias{risk_ratio}
-\title{Function to compute risk ratio.}
+\title{Function to compute risk ratio (relative risk).}
 \usage{
 risk_ratio(data)
 }
@@ -13,7 +13,8 @@ risk_ratio(data)
 A numeric value of the risk ratio of the matrix.
 }
 \description{
-This function takes a 2x2 matrix and calculates the risk ratio.
+This function takes a 2x2 matrix and calculates the risk ratio. The formula for this is:
+\deqn{\text{Risk ratio} = \frac{\text{Diseased}_{\text{Exposed}} / (\text{Diseased}_{\text{Exposed}} + \text{NonDiseased}_{\text{Exposed}})}{\text{Diseased}_{\text{NonExposed}} / (\text{Diseased}_{\text{NonExposed}} + \text{NonDiseased}_{\text{NonExposed}})}}
 }
 \examples{
 risk_ratio(matrix(c(20, 6, 380, 594), nrow = 2, ncol = 2))

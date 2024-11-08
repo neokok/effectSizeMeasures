@@ -1,7 +1,7 @@
 #' Function to compute pearson's correlation coefficient
 #'
 #' This function takes two vectors and returns pearson's correlation coefficient. The formula for this is:
-#' r = (sum(i = 1 to n) ((x_i - x̄) * (y_i - ȳ))) / (sqrt(sum(i = 1 to n) ((x_i - x̄)^2)) * sqrt(sum(i = 1 to n) ((y_i - ȳ)^2)))
+#' \deqn{r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}}}
 #'
 #' @param x A numeric vector of length n.
 #' @param y A numeric vector also of length n.

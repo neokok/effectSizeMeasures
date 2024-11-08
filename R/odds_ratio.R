@@ -1,7 +1,7 @@
 #' Function to compute odds ratio with normal approximation (Wald)
 #'
 #' This function takes a 2x2 matrix and calculates the odds ratio. The formula for this is:
-#' Odds ratio = (Diseased_Exposed / NonDiseased_Exposed) / (Diseased_NonExposed / NonDiseased_NonExposed)
+#' \deqn{\text{Odds ratio} = \frac{\text{Diseased}_{\text{Exposed}} / \text{NonDiseased}_{\text{Exposed}}}{\text{Diseased}_{\text{NonExposed}} / \text{NonDiseased}_{\text{NonExposed}}}}
 #'
 #' @param data A 2x2 numeric matrix of the form: c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2)
 #' @return A numeric value of the odds ratio of the matrix.

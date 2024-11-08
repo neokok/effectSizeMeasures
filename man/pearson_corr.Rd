@@ -15,7 +15,8 @@ pearson_corr(x, y)
 A numeric value of the pearson correlation coefficient of x and y.
 }
 \description{
-This function takes two vectors and returns pearson's correlation coefficient.
+This function takes two vectors and returns pearson's correlation coefficient. The formula for this is:
+\deqn{r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}}}
 }
 \examples{
 pearson_corr(c(1, 2, 3, 4), c(4, 6, 7, 4))

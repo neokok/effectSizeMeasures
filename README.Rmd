@@ -37,8 +37,8 @@ pak::pak("neokok/effectSizeMeasures")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(effectSizeMeasures)
-## basic example code
+#library(effectSizeMeasures)
+#cohens_d(c(1, 2, 3, 4), c(4, 6, 7, 4), TRUE)
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:

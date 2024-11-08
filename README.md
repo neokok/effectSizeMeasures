@@ -29,8 +29,8 @@ pak::pak("neokok/effectSizeMeasures")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(effectSizeMeasures)
-## basic example code
+#library(effectSizeMeasures)
+#cohens_d(c(1, 2, 3, 4), c(4, 6, 7, 4), TRUE)
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`?
@@ -46,13 +46,3 @@ summary(cars)
 #>  3rd Qu.:19.0   3rd Qu.: 56.00  
 #>  Max.   :25.0   Max.   :120.00
 ```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.

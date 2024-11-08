@@ -13,7 +13,8 @@ odds_ratio(data)
 A numeric value of the odds ratio of the matrix.
 }
 \description{
-This function takes a 2x2 matrix and calculates the odds ratio.
+This function takes a 2x2 matrix and calculates the odds ratio. The formula for this is:
+\deqn{\text{Odds ratio} = \frac{\text{Diseased}_{\text{Exposed}} / \text{NonDiseased}_{\text{Exposed}}}{\text{Diseased}_{\text{NonExposed}} / \text{NonDiseased}_{\text{NonExposed}}}}
 }
 \examples{
 odds_ratio(matrix(c(20, 6, 380, 594), nrow = 2, ncol = 2))

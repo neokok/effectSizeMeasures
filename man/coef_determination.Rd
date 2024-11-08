@@ -15,7 +15,8 @@ coef_determination(x, y)
 A numeric value of coefficient of determination of x and y.
 }
 \description{
-This function takes two vectors and returns the coefficient of determination.
+This function takes two vectors and returns the coefficient of determination by calling the pearson_corr function and squaring the output. The formula for this is:
+R^2 = r^2
 }
 \examples{
 coef_determination(c(1, 2, 3, 4), c(4, 6, 7, 4))
