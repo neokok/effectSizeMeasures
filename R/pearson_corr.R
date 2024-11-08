@@ -8,6 +8,7 @@
 #' @return A numeric value of the pearson correlation coefficient of x and y.
 #' @examples
 #' pearson_corr(c(1, 2, 3, 4), c(4, 6, 7, 4))
+#' # Output: 0.0860663
 #' @export
 #'
 

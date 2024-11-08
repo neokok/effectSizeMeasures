@@ -20,4 +20,5 @@ This function takes two vectors and returns pearson's correlation coefficient. T
 }
 \examples{
 pearson_corr(c(1, 2, 3, 4), c(4, 6, 7, 4))
+# Output: 0.0860663
 }

@@ -18,7 +18,9 @@ A numeric value of the raw or absolute value of cohen's d of x1 and x2.
 }
 \description{
 This function takes two vectors and returns the raw or absolute value of cohen's d. It is calculated by taking the difference of the two means and dividing it by the pooled standard deviation:
-\deqn{d = \frac{x_1 - x_2}{s} \text{ where } s = \sqrt{\frac{(n_1 - 1) s_1^2 + (n_2 - 1) s_2^2}{n_1 + n_2 - 2}}}
+\deqn{d = \frac{x_1 - x_2}{s}}
+where:
+\deqn{s = \sqrt{\frac{(n_1 - 1) s_1^2 + (n_2 - 1) s_2^2}{n_1 + n_2 - 2}}}
 }
 \examples{
 cohens_d(c(1, 2, 3, 4), c(4, 6, 7, 4), TRUE)
