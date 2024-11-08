@@ -18,7 +18,7 @@
 
 cohens_d = function(x1, x2, abs = FALSE){
   if(length(x1) == 0 | length(x2) == 0){
-    warning("Input lengths of x and y must be greater than 0.")
+    stop("Input lengths of x and y must be greater than 0.")
   }
 
   mean_x1 = mean(x1)

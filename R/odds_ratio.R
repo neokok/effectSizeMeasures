@@ -12,13 +12,17 @@
 
 odds_ratio = function(data){
   if(sum(dim(data) == c(2,2)) != 2){
-    warning("Input dimension must be a matrix of 2x2 dimension.")
+    stop("Input dimension must be a matrix of 2x2 dimension.")
   }
   a = data[1,1]
   b = data[1,2]
   c = data[2,1]
   d = data[2,2]
 
-  return((a / b) / (c / d))
+  odds = (a / b) / (c / d)
+  if(!is.infinite(odds)){
+    return(odds)
+  }
+  return(NA)
 
 }

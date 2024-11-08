@@ -12,13 +12,16 @@
 
 risk_ratio = function(data){
   if(sum(dim(data) == c(2,2)) != 2){
-    warning("Input dimension must be a matrix of 2x2 dimension.")
+    stop("Input dimension must be a matrix of 2x2 dimension.")
   }
   a = data[1,1]
   b = data[1,2]
   c = data[2,1]
   d = data[2,2]
 
-  return((a / (a + b)) / (c / (c + d)))
-
+  risk = (a / (a + b)) / (c / (c + d))
+  if(!is.infinite(risk)){
+    return(risk)
+  }
+  return(NA)
 }

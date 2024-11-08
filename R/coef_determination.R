@@ -14,7 +14,7 @@
 
 coef_determination = function(x, y){
   if(length(x) != length(y) | length(x) == 0){
-    warning("Input lengths of x and y must be equal and greater than 0.")
+    stop("Input lengths of x and y must be equal and greater than 0.")
   }
 
   return(pearson_corr(x,y) ^ 2)
