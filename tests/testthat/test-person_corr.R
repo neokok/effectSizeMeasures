@@ -35,3 +35,11 @@ test_that("pearson_corr returns error if one variable has no variance", {
 })
 
 
+test_that("pearson_corr returns error if NAs are present", {
+  x <- c(1, 1, NA, 1, 3)
+  y <- c(2, NA, 6, 8, 10)
+
+  expect_error(pearson_corr(x, y), "NAs present")
+})
+
+
