@@ -80,3 +80,5 @@ Example use of calculating Cohen’s d:
 cohens_d(c(1, 2, 3, 4), c(4, 6, 7, 4), TRUE)
 #> [1] 1.965121
 ```
+
+## More examples can be found in vignettes/effect_sizes_run_through.Rmd
