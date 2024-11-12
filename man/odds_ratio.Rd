@@ -2,12 +2,12 @@
 % Please edit documentation in R/odds_ratio.R
 \name{odds_ratio}
 \alias{odds_ratio}
-\title{Function to compute odds ratio with normal approximation (Wald)}
+\title{Function to compute odds ratio with Wald approximation.}
 \usage{
 odds_ratio(data)
 }
 \arguments{
-\item{data}{A 2x2 numeric matrix of the form: c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2)}
+\item{data}{A 2x2 numeric matrix of the form: as.matrix(c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2))}
 }
 \value{
 A numeric value of the odds ratio of the matrix.

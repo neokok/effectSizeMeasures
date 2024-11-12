@@ -1,0 +1,214 @@
+---
+title: "A Practical Guide to effectSizeMeasures"
+author: "Neo Kok"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{effect_size_examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Setting up package installation:
+```{r setup}
+# install.packages("devtools")
+devtools::install_github("neokok/effectSizeMeasures")
+library(effectSizeMeasures)
+```
+
+
+The effectSizeMeasures package is useful for analyzing effect sizes for a variety of data. In this vignette, we will go step by step through each function and run through some examples of use cases using simulated data. 
+
+We will then compare the accuracy and efficiency of the functions against similar functions from other R packages.
+
+
+## 1. Pearson's Correlation Coefficient
+
+The Pearson's correlation coefficient function ,"pearson_corr()", asks for two inputs: numeric vectors x and y of the same length. Let's start off by simulating data for these two variables. Let's also visualize the relationship between the simulated variables.
+```{r, fig.width = 8, fig.height = 6}
+set.seed(42)
+
+# Simulate data
+n = 100
+x = rnorm(n, mean = 50, sd = 10)
+y = 0.7 * x + rnorm(n, mean = 0, sd = 5)
+simulated_data_pearson = data.frame(x, y)
+
+# Plot relationship between x and y
+plot(x, y,
+     main = "Scatterplot of x and y",
+     xlab = "Variable X",
+     ylab = "Variable Y",
+     pch = 16)
+
+# Create a simple linear model to show relationship between x and y
+# and overlay it on the plot
+model = lm(y ~ x)
+abline(model, lwd = 2)
+
+```
+We can immediately see that there is a relatively strong relationship between x and y due to the minor deviations from the simple linear model connecting the two. Intuitively, this makes sense as the vector y is simulated directly from x. But exactly how strong is this relationship? Let's use the pearson_corr() function from this package.
+
+```{r}
+print(pearson_corr(x, y))
+```
+
+The correlation is approximately 0.854. This follows our intuition that there is a relatively strong relationship between the two variables. 
+
+Now, let's compare this function to the cor() function from the "stats" package.
+```{r}
+# Accuracy: 
+print(pearson_corr(x,y))
+print(stats::cor(x,y))
+
+print(paste0("pearson_corr() and cor() return the same output: ", all.equal(pearson_corr(x,y), cor(x,y))))
+
+# Efficiency
+bench::mark(pearson_corr(x,y), stats::cor(x,y))
+```
+We can immediately see that the outputs are identical for pearson_corr() and cor(). The efficiency of both are also almost identical, down to the µs.
+
+## 2. Coefficient of Determination
+
+Similar to Pearson's correlation coefficient, the coefficient of determination function, "coef_determination()", asks for two inputs: numeric vectors x and y of the same length. As the coefficient of determination is highly related to Pearson's correlation coefficient, let's use the same simulated data as before, x and y, to show how to use the coef_determination() function from this package. 
+
+```{r}
+print(coef_determination(x, y))
+```
+
+This output is simply the Pearson's correlation coefficient, squared. We can also acquire this number by using base R to extract it from the simple linear model in part 1. Lets compare the accuracy and efficiency of these three methods.
+
+```{r}
+# Accuracy
+print(coef_determination(x, y))
+print(pearson_corr(x, y)^2)
+print(summary(model)$r.squared)
+
+print(paste0("All three methods return the same output: ", all.equal(coef_determination(x, y), pearson_corr(x, y)^2, summary(model)$r.squared)))
+
+# Efficiency
+bench::mark(coef_determination(x, y), pearson_corr(x, y)^2, summary(model)$r.squared)
+```
+
+Again, we can immediately see that the outputs are identical for coef_determination(), squaring pearson_corr(), and extracting it from the simple linear model. The efficiency of the first two both are similar, while the last method is noticeably slower. This is because it is calculating other statistics than just the coefficient of determination.
+
+
+## 3. Odds Ratio
+
+The odds ratio function, "odds_ratio()", asks for a 2x2 matrix which follows the form: c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2). Let's simulate some data for this example and provide a table to help visualize the relationship. 
+
+```{r}
+# Simulate data
+n = 1000
+prob_exposed = 0.4
+prob_diseased_exposed = 0.3
+prob_diseased_unexposed = 0.1
+
+exposure = rbinom(n, size = 1, prob = prob_exposed)
+disease = ifelse(exposure == 1,
+                  rbinom(n, size = 1, prob = prob_diseased_exposed),
+                  rbinom(n, size = 1, prob = prob_diseased_unexposed))
+
+exposure_factor = factor(exposure, levels = c(1, 0), labels = c("Exposed", "Non-Exposed"))
+disease_factor = factor(disease, levels = c(1, 0), labels = c("Diseased", "Non-Diseased"))
+                            
+table = as.matrix(table(Exposed = exposure_factor, Diseased = disease_factor))
+knitr::kable(table)
+```
+Now, let's calculate the odds ratio using the odds_ratio() function.
+
+```{r}
+print(odds_ratio(table))
+```
+
+This odds ratio indicates that the odds of getting diseased is 3.5x higher in the exposed population compared to the non-exposed population.
+
+Now, lets compare this to the oddsratio() function in the "epitools" package. Note that the effectSizeMeasures function for calculating odds ratio is based on the Wald approximation, so we have to indicate that when calling the epitools::oddsratio() function.
+
+```{r}
+# Accuracy: 
+print(odds_ratio(table))
+print(epitools::oddsratio(table, method = "wald")$measure[2])
+
+print(paste0("odds_ratio() and epitools::oddsratio() return the same output: ",
+             all.equal(odds_ratio(table), epitools::oddsratio(table, method = "wald")$measure[2])))
+
+# Efficiency
+bench::mark(odds_ratio(table), epitools::oddsratio(table, method = "wald")$measure[2])
+```
+We see that we get identical results between the two methods, but the effectSizeMeasures method is far quicker. This is due to the fact that the "epitools" implementation also returns other statistics like confidence intervals.
+
+
+# 4. Risk Ratio
+
+Like the odds_ratio() function, the risk ratio function, "risk_ratio()", also asks for a 2x2 matrix which follows the form: c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2). Let's use the same data to calculate the risk ratio.
+
+```{r}
+print(risk_ratio(table))
+```
+
+For this data, the risk of getting diseased is 2.79 times higher in the exposed group compared to the non-exposed group.
+
+Now, lets compare this to the riskratio() function in the "epitools" package. Note that the effectSizeMeasures function for calculating risk ratio is based on the Wald approximation, so we have to indicate that when calling the epitools::riskratio() function.
+
+```{r}
+# Accuracy: 
+print(risk_ratio(table))
+print(epitools::riskratio(table, method = "wald")$measure[2])
+
+print(paste0("risk_ratio() and epitools::riskratio() return the same output: ",
+             all.equal(risk_ratio(table), epitools::riskratio(table, method = "wald")$measure[2])))
+
+# Efficiency
+bench::mark(risk_ratio(table), epitools::riskratio(table, method = "wald")$measure[2])
+```
+Similar to the odds ratio, we see that they return the same outputs but the effectSizeMeasures function risk_ratio() is much faster because it does not calculate other statistics like the epitools function riskratio() does.
+
+
+
+# 5. Cohen's d
+
+The cohen's d function, "cohens_d()", asks for two numeric vectors and returns either the raw or absolute value of the cohen's d. Let's simulate some data for this example and provide a plot to help visualize the relationship. 
+
+```{r, fig.width = 8, fig.height = 6}
+set.seed(123)
+x1 = rnorm(50, mean = 5, sd = 1)
+x2 = rnorm(50, mean = 6, sd = 1)
+
+density_x1 = density(x1)
+density_x2 = density(x2)
+
+plot(density_x1, col = "blue", lwd = 2, xlab = "Value", ylab = "Density", ylim = c(0,0.5))
+lines(density_x2, col = "red", lwd = 2)
+legend("topright", legend = c("X1", "X2"), col = c("blue", "red"), lwd = 2)
+
+```
+Here we can see the overlapping distributions of the two groups, x1 and x2. Now, lets calculate the raw and absolute value of Cohen's d between these two groups.  
+
+```{r}
+print(cohens_d(x1, x2, abs = F))
+print(cohens_d(x1, x2, abs = T))
+```
+
+This output of over 1 tells us that there is a large difference between these two groups. Since the raw value is negative, we know that x1 is significantly smaller than x2. 
+
+Let's compare this output to the cohensD() function from the "lsr" package. Since this function only returns the magnitude, we will use the "abs = T" parameter.
+
+```{r}
+# Accuracy: 
+print(cohens_d(x1, x2, abs = T))
+print(lsr::cohensD(x1,x2))
+
+print(paste0("cohens_d() and lsr::cohensD() return the same output: ",
+             all.equal(cohens_d(x1, x2, abs = T), lsr::cohensD(x1,x2))))
+
+# Efficiency
+bench::mark(cohens_d(x1, x2, abs = T), lsr::cohensD(x1,x2))
+```
+We see that we get identical results between the two methods, but the effectSizeMeasures method is far quicker. 

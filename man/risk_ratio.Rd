@@ -2,12 +2,12 @@
 % Please edit documentation in R/risk_ratio.R
 \name{risk_ratio}
 \alias{risk_ratio}
-\title{Function to compute risk ratio (relative risk).}
+\title{Function to compute risk ratio (relative risk) with Wald Approximation.}
 \usage{
 risk_ratio(data)
 }
 \arguments{
-\item{data}{A 2x2 numeric matrix of the form: c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2)}
+\item{data}{A 2x2 numeric matrix of the form: as.matrix(c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2))}
 }
 \value{
 A numeric value of the risk ratio of the matrix.

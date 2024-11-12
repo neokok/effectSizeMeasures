@@ -1,6 +1,6 @@
 test_that("risk_ratio calculates correctly for a 2x2 matrix", {
   data <- matrix(c(10, 20, 5, 15), nrow = 2, ncol = 2)
-  expect_equal(risk_ratio(data), 1.16667, tolerance = 1e-3)
+  expect_equal(risk_ratio(data), 1.285714, tolerance = 1e-3)
 })
 
 test_that("risk_ratio returns error for non-2x2 input", {
@@ -13,9 +13,12 @@ test_that("risk_ratio returns error for non-2x2 input", {
 
 test_that("risk_ratio handles cases where one cell is zero", {
   data <- matrix(c(0, 20, 5, 15), nrow = 2, ncol = 2)
-  expect_equal(risk_ratio(data), 0)
+  expect_equal(risk_ratio(data), 0.42857143)
 
   data <- matrix(c(10, 0, 5, 15), nrow = 2, ncol = 2)
+  expect_equal(risk_ratio(data), 3)
+
+  data <- matrix(c(10, 2, 0, 15), nrow = 2, ncol = 2)
   expect_equal(risk_ratio(data), NA)
 })
 
