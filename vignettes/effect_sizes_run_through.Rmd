@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 Setting up package installation:
-```{r setup}
+```{r setup, message = FALSE}
 # install.packages("devtools")
 devtools::install_github("neokok/effectSizeMeasures")
 library(effectSizeMeasures)
@@ -29,6 +29,7 @@ We will then compare the accuracy and efficiency of the functions against simila
 
 
 ## 1. Pearson's Correlation Coefficient
+*pearson_corr(x, y)*
 
 The Pearson's correlation coefficient function ,"pearson_corr()", asks for two inputs: numeric vectors x and y of the same length. Let's start off by simulating data for these two variables. Let's also visualize the relationship between the simulated variables.
 ```{r, fig.width = 8, fig.height = 6}
@@ -53,7 +54,9 @@ model = lm(y ~ x)
 abline(model, lwd = 2)
 
 ```
-We can immediately see that there is a relatively strong relationship between x and y due to the minor deviations from the simple linear model connecting the two. Intuitively, this makes sense as the vector y is simulated directly from x. But exactly how strong is this relationship? Let's use the pearson_corr() function from this package.
+We can immediately see that there is a relatively strong relationship between x and y due to the minor deviations from the simple linear model connecting the two. Intuitively, this makes sense as the vector y is simulated directly from x.
+
+But exactly how strong is this relationship? Let's use the pearson_corr() function from this package.
 
 ```{r}
 print(pearson_corr(x, y))
@@ -74,7 +77,9 @@ bench::mark(pearson_corr(x,y), stats::cor(x,y))
 ```
 We can immediately see that the outputs are identical for pearson_corr() and cor(). The efficiency of both are also almost identical, down to the µs.
 
+
 ## 2. Coefficient of Determination
+*coef_determination(x, y)*
 
 Similar to Pearson's correlation coefficient, the coefficient of determination function, "coef_determination()", asks for two inputs: numeric vectors x and y of the same length. As the coefficient of determination is highly related to Pearson's correlation coefficient, let's use the same simulated data as before, x and y, to show how to use the coef_determination() function from this package. 
 
@@ -100,6 +105,7 @@ Again, we can immediately see that the outputs are identical for coef_determinat
 
 
 ## 3. Odds Ratio
+*odds_ratio(data)*
 
 The odds ratio function, "odds_ratio()", asks for a 2x2 matrix which follows the form: c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2). Let's simulate some data for this example and provide a table to help visualize the relationship. 
 
@@ -145,7 +151,8 @@ bench::mark(odds_ratio(table), epitools::oddsratio(table, method = "wald")$measu
 We see that we get identical results between the two methods, but the effectSizeMeasures method is far quicker. This is due to the fact that the "epitools" implementation also returns other statistics like confidence intervals.
 
 
-# 4. Risk Ratio
+## 4. Risk Ratio
+*risk_ratio(data)*
 
 Like the odds_ratio() function, the risk ratio function, "risk_ratio()", also asks for a 2x2 matrix which follows the form: c(Diseased_Exposed, NonDiseased_Exposed, Disease_NonExposed, NonDisease_NonExposed2). Let's use the same data to calculate the risk ratio.
 
@@ -172,11 +179,13 @@ Similar to the odds ratio, we see that they return the same outputs but the effe
 
 
 
-# 5. Cohen's d
+## 5. Cohen's d
+*cohens_d(x1, x2)*
 
 The cohen's d function, "cohens_d()", asks for two numeric vectors and returns either the raw or absolute value of the cohen's d. Let's simulate some data for this example and provide a plot to help visualize the relationship. 
 
 ```{r, fig.width = 8, fig.height = 6}
+# Simulate data
 set.seed(123)
 x1 = rnorm(50, mean = 5, sd = 1)
 x2 = rnorm(50, mean = 6, sd = 1)
@@ -184,9 +193,11 @@ x2 = rnorm(50, mean = 6, sd = 1)
 density_x1 = density(x1)
 density_x2 = density(x2)
 
-plot(density_x1, col = "blue", lwd = 2, xlab = "Value", ylab = "Density", ylim = c(0,0.5))
+# Create overlapping density plot
+plot(density_x1, col = "blue", lwd = 2, main = "Density overlay for x1 and x2",
+     xlab = "Value", ylab = "Density", ylim = c(0,0.5))
 lines(density_x2, col = "red", lwd = 2)
-legend("topright", legend = c("X1", "X2"), col = c("blue", "red"), lwd = 2)
+legend("topright", legend = c("x1", "x2"), col = c("blue", "red"), lwd = 2)
 
 ```
 Here we can see the overlapping distributions of the two groups, x1 and x2. Now, lets calculate the raw and absolute value of Cohen's d between these two groups.  
@@ -212,3 +223,7 @@ print(paste0("cohens_d() and lsr::cohensD() return the same output: ",
 bench::mark(cohens_d(x1, x2, abs = T), lsr::cohensD(x1,x2))
 ```
 We see that we get identical results between the two methods, but the effectSizeMeasures method is far quicker. 
+
+
+
+Now, we have walked through use cases for each of the five functions in the effectSizeMeasures package and compared their accuracy and efficiency.

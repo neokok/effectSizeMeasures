@@ -11,18 +11,23 @@
 #'
 
 odds_ratio = function(data){
+  # Matrix size check
   if(sum(dim(data) == c(2,2)) != 2){
     stop("Input dimension must be a matrix of 2x2 dimension.")
   }
+
+  # Initialize sectors of data
   a = data[1,1]
   b = data[1,2]
   c = data[2,1]
   d = data[2,2]
 
+  # Calculate odds ratio based on formula
   odds = (a / b) / (c / d)
+
+  # Return odds ratio if it is not infinite, otherwise return stop message
   if(!is.infinite(odds)){
     return(odds)
   }
-  return(NA)
-
+  stop("Odds ratio cannot be calculated with no observations for not exposed and diseased")
 }

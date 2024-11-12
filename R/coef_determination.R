@@ -13,9 +13,11 @@
 
 
 coef_determination = function(x, y){
+  # Length check
   if(length(x) != length(y) | length(x) == 0){
     stop("Input lengths of x and y must be equal and greater than 0.")
   }
 
+  # Return the square of the Pearson correlation coefficient
   return(pearson_corr(x,y) ^ 2)
 }

@@ -11,17 +11,23 @@
 #'
 
 risk_ratio = function(data){
+  # Matrix size check
   if(sum(dim(data) == c(2,2)) != 2){
     stop("Input dimension must be a matrix of 2x2 dimension.")
   }
+
+  # Initialize sectors of data
   a = data[1,1]
   b = data[1,2]
   c = data[2,1]
   d = data[2,2]
 
+  # Calculate risk ratio based on formula
   risk = (d / (d + c)) / (b / (a + b))
+
+  # Return risk ratio if it is not infinite, otherwise return stop message
   if(!is.infinite(risk)){
     return(risk)
   }
-  return(NA)
+  stop("Risk ratio cannot be calculated with no observations for exposed and non-diseased")
 }

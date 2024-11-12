@@ -17,24 +17,30 @@
 
 
 cohens_d = function(x1, x2, abs = FALSE){
+
+  # Length check
   if(length(x1) == 0 | length(x2) == 0){
     stop("Input lengths of x and y must be greater than 0.")
   }
 
+  # Calculate group averages
   mean_x1 = mean(x1)
   mean_x2 = mean(x2)
 
+  # Calculate lengths
   n1 = length(x1)
   n2 = length(x2)
 
+  # Calculate group variances
   s1 = (1/(n1 - 1)) * sum((x1 - mean_x1)^2)
   s2 = (1/(n2 - 1)) * sum((x2 - mean_x2)^2)
 
+  # Calculate pooled std based on the formula
   numerator = ((n1 - 1) * s1) + ((n2 - 1) * s2)
   denominator = n1 + n2 - 2
-
   s = sqrt(numerator/denominator)
 
+  # Return absolute value of Cohen's d if abs == T, otherwise return the raw value
   if(abs){
   return(abs((mean_x1 - mean_x2)/s))
   }

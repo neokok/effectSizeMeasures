@@ -16,12 +16,7 @@ test_that("odds_ratio handles cases where one cell is zero", {
   expect_equal(odds_ratio(data), 0)
 
   data <- matrix(c(10, 0, 5, 15), nrow = 2, ncol = 2)
-  expect_equal(odds_ratio(data), NA)
-})
-
-test_that("odds_ratio returns NA for division by zero cases", {
-  data <- matrix(c(10, 20, 0, 15), nrow = 2, ncol = 2)
-  expect_true(is.na(odds_ratio(data)))
+  expect_error(odds_ratio(data), "Odds ratio cannot be calculated with no observations for not exposed and diseased")
 })
 
 test_that("odds_ratio returns 1 for a balanced 2x2 matrix", {
